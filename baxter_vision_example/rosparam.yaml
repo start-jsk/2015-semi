@@ -9704,7 +9704,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   5.0635929\" ixy=\"0.00103417\" ixz=\"0.80199628\" iyy=\"6.08689388\" iyz=\"0.00105311\"\
   \ izz=\"4.96191932\"/>\n    </inertial>\n  </link>\n  <link name=\"head\">\n   \
   \ <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 .00953\"/>\n      <geometry>\n\
-  \        <mesh filename=\"package://baxter_description/meshes/head/H0_simple.STL\"\
+  \        <mesh filename=\"package://baxter_description/meshes/head/H0.STL\"\
   />\n      </geometry>\n      <material name=\"darkgray\">\n        <color rgba=\"\
   .2 .2 .2 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0.0 0 0.0\"/>\n      <geometry>\n        <sphere radius=\"\
@@ -9721,7 +9721,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   0.0001\"/>\n      <inertia ixx=\"1e-08\" ixy=\"0\" ixz=\"0\" iyy=\"1e-08\" iyz=\"\
   0\" izz=\"1e-08\"/>\n    </inertial>\n  </link>\n  <link name=\"screen\">\n    <visual>\n\
   \      <origin rpy=\"0 -1.57079632679 0\" xyz=\"0 -.00953 -.0347\"/>\n      <geometry>\n\
-  \        <mesh filename=\"package://baxter_description/meshes/head/H1_simple.STL\"\
+  \        <mesh filename=\"package://baxter_description/meshes/head/H1.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0.0 0 0.0\"/>\n      <geometry>\n        <sphere radius=\"\
@@ -9791,7 +9791,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   \      <mass value=\"0.0001\"/>\n      <inertia ixx=\"1e-08\" ixy=\"0\" ixz=\"0\"\
   \ iyy=\"1e-08\" iyz=\"0\" izz=\"1e-08\"/>\n    </inertial>\n  </link>\n  <link name=\"\
   right_upper_shoulder\">\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"\
-  />\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/upper_shoulder/S0_simple.STL\"\
+  />\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/upper_shoulder/S0.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 0.1361\"/>\n      <geometry>\n        <cylinder length=\"\
@@ -9800,7 +9800,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   5.70044\"/>\n      <inertia ixx=\"0.04709102262\" ixy=\"0.00012787556\" ixz=\"0.00614870039\"\
   \ iyy=\"0.03766976455\" iyz=\"0.00078086899\" izz=\"0.03595988478\"/>\n    </inertial>\n\
   \  </link>\n  <link name=\"right_lower_shoulder\">\n    <visual>\n      <origin\
-  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/lower_shoulder/S1_simple.STL\"\
+  \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/lower_shoulder/S1.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <cylinder length=\"0.12\"\
@@ -9810,7 +9810,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   0.00207675762\" iyy=\"0.0278859752\" iyz=\"-0.00018821993\" izz=\"0.02078749298\"\
   />\n    </inertial>\n  </link>\n  <link name=\"right_upper_elbow\">\n    <visual>\n\
   \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
-  package://baxter_description/meshes/upper_elbow/E0_simple.STL\"/>\n      </geometry>\n\
+  package://baxter_description/meshes/upper_elbow/E0.STL\"/>\n      </geometry>\n\
   \      <material name=\"darkred\">\n        <color rgba=\".5 .1 .1 1\"/>\n     \
   \ </material>\n    </visual>\n    <collision>\n      <origin rpy=\"0 0 0\" xyz=\"\
   0 0 -0.0535\"/>\n      <geometry>\n        <cylinder length=\"0.107\" radius=\"\
@@ -9825,7 +9825,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   \     <inertia ixx=\"1e-08\" ixy=\"0\" ixz=\"0\" iyy=\"1e-08\" iyz=\"0\" izz=\"\
   1e-08\"/>\n    </inertial>\n  </link>\n  <link name=\"right_lower_elbow\">\n   \
   \ <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n    \
-  \    <mesh filename=\"package://baxter_description/meshes/lower_elbow/E1_simple.STL\"\
+  \    <mesh filename=\"package://baxter_description/meshes/lower_elbow/E1.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0.0 0.0 0.0\"/>\n      <geometry>\n        <cylinder length=\"\
@@ -9834,7 +9834,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   2.07206\"/>\n      <inertia ixx=\"0.00711582686\" ixy=\"0.00036036173\" ixz=\"0.0007459496\"\
   \ iyy=\"0.01318227876\" iyz=\"-0.00019663418\" izz=\"0.00926852064\"/>\n    </inertial>\n\
   \  </link>\n  <link name=\"right_upper_forearm\">\n    <visual>\n      <origin rpy=\"\
-  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/upper_forearm/W0_simple.STL\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/upper_forearm/W0.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 -0.044\"/>\n      <geometry>\n        <cylinder length=\"\
@@ -9852,7 +9852,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   \ 0.000000 0.000000\"/>\n      <mass value=\"0.0001\"/>\n      <inertia ixx=\"1e-08\"\
   \ ixy=\"0\" ixz=\"0\" iyy=\"1e-08\" iyz=\"0\" izz=\"1e-08\"/>\n    </inertial>\n\
   \  </link>\n  <link name=\"right_lower_forearm\">\n    <visual>\n      <origin rpy=\"\
-  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/lower_forearm/W1_simple.STL\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/lower_forearm/W1.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <cylinder length=\"0.10\"\
@@ -9861,7 +9861,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   />\n      <inertia ixx=\"0.00387607152\" ixy=\"-0.00044384784\" ixz=\"-0.00021115038\"\
   \ iyy=\"0.00700537914\" iyz=\"0.00015348067\" izz=\"0.0055275524\"/>\n    </inertial>\n\
   \  </link>\n  <link name=\"right_wrist\">\n    <visual>\n      <origin rpy=\"0 0\
-  \ 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/wrist/W2_simple.STL\"\
+  \ 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/wrist/W2.STL\"\
   />\n      </geometry>\n      <material name=\"lightgrey\">\n        <color rgba=\"\
   .1 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <cylinder length=\"0.165\"\
@@ -9975,7 +9975,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   0.0001\"/>\n      <inertia ixx=\"1e-08\" ixy=\"0\" ixz=\"0\" iyy=\"1e-08\" iyz=\"\
   0\" izz=\"1e-08\"/>\n    </inertial>\n  </link>\n  <link name=\"left_upper_shoulder\"\
   >\n    <visual>\n      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n\
-  \        <mesh filename=\"package://baxter_description/meshes/upper_shoulder/S0_simple.STL\"\
+  \        <mesh filename=\"package://baxter_description/meshes/upper_shoulder/S0.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 0.1361\"/>\n      <geometry>\n        <cylinder length=\"\
@@ -9984,7 +9984,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   5.70044\"/>\n      <inertia ixx=\"0.04709102262\" ixy=\"0.00012787556\" ixz=\"0.00614870039\"\
   \ iyy=\"0.03766976455\" iyz=\"0.00078086899\" izz=\"0.03595988478\"/>\n    </inertial>\n\
   \  </link>\n  <link name=\"left_lower_shoulder\">\n    <visual>\n      <origin rpy=\"\
-  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/lower_shoulder/S1_simple.STL\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/lower_shoulder/S1.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <cylinder length=\"0.12\"\
@@ -9994,7 +9994,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   0.00207675762\" iyy=\"0.0278859752\" iyz=\"-0.00018821993\" izz=\"0.02078749298\"\
   />\n    </inertial>\n  </link>\n  <link name=\"left_upper_elbow\">\n    <visual>\n\
   \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
-  package://baxter_description/meshes/upper_elbow/E0_simple.STL\"/>\n      </geometry>\n\
+  package://baxter_description/meshes/upper_elbow/E0.STL\"/>\n      </geometry>\n\
   \      <material name=\"darkred\">\n        <color rgba=\".5 .1 .1 1\"/>\n     \
   \ </material>\n    </visual>\n    <collision>\n      <origin rpy=\"0 0 0\" xyz=\"\
   0 0 -0.0535\"/>\n      <geometry>\n        <cylinder length=\"0.107\" radius=\"\
@@ -10009,7 +10009,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   \     <inertia ixx=\"1e-08\" ixy=\"0\" ixz=\"0\" iyy=\"1e-08\" iyz=\"0\" izz=\"\
   1e-08\"/>\n    </inertial>\n  </link>\n  <link name=\"left_lower_elbow\">\n    <visual>\n\
   \      <origin rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"\
-  package://baxter_description/meshes/lower_elbow/E1_simple.STL\"/>\n      </geometry>\n\
+  package://baxter_description/meshes/lower_elbow/E1.STL\"/>\n      </geometry>\n\
   \      <material name=\"darkred\">\n        <color rgba=\".5 .1 .1 1\"/>\n     \
   \ </material>\n    </visual>\n    <collision>\n      <origin rpy=\"0 0 0\" xyz=\"\
   0.0 0.0 0.0\"/>\n      <geometry>\n        <cylinder length=\"0.10\" radius=\"0.06\"\
@@ -10018,7 +10018,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   \  <inertia ixx=\"0.00711582686\" ixy=\"0.00036036173\" ixz=\"0.0007459496\" iyy=\"\
   0.01318227876\" iyz=\"-0.00019663418\" izz=\"0.00926852064\"/>\n    </inertial>\n\
   \  </link>\n  <link name=\"left_upper_forearm\">\n    <visual>\n      <origin rpy=\"\
-  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/upper_forearm/W0_simple.STL\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/upper_forearm/W0.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 -0.044\"/>\n      <geometry>\n        <cylinder length=\"\
@@ -10036,7 +10036,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   \ 0.000000 0.000000\"/>\n      <mass value=\"0.0001\"/>\n      <inertia ixx=\"1e-08\"\
   \ ixy=\"0\" ixz=\"0\" iyy=\"1e-08\" iyz=\"0\" izz=\"1e-08\"/>\n    </inertial>\n\
   \  </link>\n  <link name=\"left_lower_forearm\">\n    <visual>\n      <origin rpy=\"\
-  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/lower_forearm/W1_simple.STL\"\
+  0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/lower_forearm/W1.STL\"\
   />\n      </geometry>\n      <material name=\"darkred\">\n        <color rgba=\"\
   .5 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <cylinder length=\"0.10\"\
@@ -10045,7 +10045,7 @@ robot_description: "<?xml version=\"1.0\" ?>\n<!-- =============================
   />\n      <inertia ixx=\"0.00387607152\" ixy=\"-0.00044384784\" ixz=\"-0.00021115038\"\
   \ iyy=\"0.00700537914\" iyz=\"0.00015348067\" izz=\"0.0055275524\"/>\n    </inertial>\n\
   \  </link>\n  <link name=\"left_wrist\">\n    <visual>\n      <origin rpy=\"0 0\
-  \ 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/wrist/W2_simple.STL\"\
+  \ 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://baxter_description/meshes/wrist/W2.STL\"\
   />\n      </geometry>\n      <material name=\"lightgrey\">\n        <color rgba=\"\
   .1 .1 .1 1\"/>\n      </material>\n    </visual>\n    <collision>\n      <origin\
   \ rpy=\"0 0 0\" xyz=\"0 0 0\"/>\n      <geometry>\n        <cylinder length=\"0.165\"\
