@@ -1,0 +1,9 @@
+<launch>
+
+  <node name="rviz"
+        pkg="rviz" type="rviz"
+        args="-d /home/baxter/20151104_semi/segmentation_in_bin.rviz" />
+
+  <include file="$(find jsk_2015_05_baxter_apc)/launch/setup.launch" />
+
+</launch>

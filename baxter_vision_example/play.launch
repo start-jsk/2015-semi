@@ -1,0 +1,9 @@
+<launch>
+
+  <rosparam command="load" file="/home/baxter/20151104_semi/rosparam.yaml" />
+
+  <node name="rosbag_play"
+        pkg="rosbag" type="play"
+        args="/home/baxter/20151104_semi/2015-11-04-19-37-29.bag --loop --clock" />
+
+</launch>
