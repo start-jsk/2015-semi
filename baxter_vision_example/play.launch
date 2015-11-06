@@ -4,5 +4,5 @@
 
   <node name="rosbag_play"
         pkg="rosbag" type="play"
-        args="/home/mech-user/jsk-semi/baxter_sample/src/2015-semi/baxter_vision_example/2015-11-04-19-37-29_kinect2-points-pod-hand.bag --loop --clock" />
+        args="$(find baxter_vision_example)/2015-11-04-19-37-29_kinect2-points-pod-hand.bag --loop --clock" />
 </launch>
