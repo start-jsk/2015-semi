@@ -1,5 +1,4 @@
 <launch>
-
   <rosparam command="load" file="$(find baxter_vision_example)/rosparam.yaml" />
 
   <node name="rosbag_play"
