@@ -1,0 +1,7 @@
+<launch>
+  <rosparam command="load" file="$(find baxter_vision_example)/rosparam.yaml" />
+
+  <node name="rosbag_play"
+        pkg="rosbag" type="play"
+        args="$(find baxter_vision_example)/2015-11-04-19-37-29_kinect2-points-pod-hand.bag --loop --clock" />
+</launch>
