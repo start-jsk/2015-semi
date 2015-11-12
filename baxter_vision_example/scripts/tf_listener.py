@@ -3,7 +3,6 @@
 import roslib
 roslib.load_manifest('baxter_vision_example')
 import rospy
-import math
 import tf
 
 if __name__ =='__main__':
