@@ -3,6 +3,7 @@ project(baxter_vision_example)
 
 find_package(catkin REQUIRED COMPONENTS
     rospy    
+    euslisp
 )
 
 include_directories(
