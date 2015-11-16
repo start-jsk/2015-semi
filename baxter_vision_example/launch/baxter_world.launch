@@ -53,6 +53,5 @@
   <!-- ros_control baxter launch file -->
   <include file="$(find baxter_sim_hardware)/launch/baxter_sdk_control.launch" />
   <!-- rosrun tf_listener-->
-  <!--<node name="tf_listener" pkg="baxter_vision_example" type="tf_listener.py" respawn="false" output="screen" />-->
-
+  <node name="tf_listener" pkg="baxter_vision_example" type="tf_listener.py" respawn="false" output="screen" />
 </launch>
