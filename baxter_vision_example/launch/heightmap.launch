@@ -1,4 +1,15 @@
 <launch>
+  <node pkg="jsk_pcl_ros" type="attention_clipper" name="attention_clipper">
+      <remap from="~input" to="xtion/depth/camera_info"/>
+      <remap from="~input/points" to="xtion/depth/points" />
+      <remap from="~input/pose" to="base_to_right_gripper_tf" /> 
+      <rosparam>
+            negative : True
+      </rosparam>
+  </node>
+  <!--<node pkg="image_view" type="image_view" name="image_view_clipper">
+      <remap from="image" to="attention_clipper/output/mask" />
+  </node>-->
   <node pkg="jsk_pcl_ros" type="heightmap_converter" name="heightmap_converter">
       <remap from="~input" to="xtion/depth/points" />
   </node>
@@ -11,16 +22,16 @@
   <node pkg="image_view" type="image_view" name="image_view">
     <remap from="image" to="colorize_raw_heightmap/output" />
   </node>
-  <node pkg="jsk_pcl_ros" type="heightmap_morphological_filtering" name="complete_hole"
-        output="screen">
+  <node pkg="jsk_pcl_ros" type="heightmap_morphological_filtering" name="complete_hole">
     <remap from="~input" to="heightmap_converter/output" />
   </node>
   <node pkg="jsk_perception" type="colorize_float_image" name="colorize_filtered_heightmap">
     <remap from="~input" to="complete_hole/output" />
-  </node>
+  </node>-
   <node pkg="jsk_pcl_ros" type="heightmap_to_pointcloud" name="completed_pointcloud">
     <remap from="~input" to="complete_hole/output" />
   </node>
+  
   <node pkg="image_view" type="image_view" name="filtered_image_view">
     <remap from="image" to="colorize_filtered_heightmap/output" />
   </node>

@@ -54,4 +54,7 @@
   <include file="$(find baxter_sim_hardware)/launch/baxter_sdk_control.launch" />
   <!-- rosrun tf_listener-->
   <node name="tf_listener" pkg="baxter_vision_example" type="tf_listener.py" respawn="false" output="screen" />
+  <!--robot enabled -->
+  <!--<node name="enable_robot" pkg="baxter_tools" type="enable_robot.py" respawn="false" output="screen" args="-e" />
+  <node name="joint_position_keyboard" pkg="baxter_examples" type="joint_position_keyboard.py" respawn="false" output="screen"/>--> 
 </launch>
