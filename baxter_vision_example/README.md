@@ -1,7 +1,16 @@
 20151104\_semi
 ==============
 
+PointCloud2 simulator
+------------------------
+```sh
+roslaunch baxter_vision_examples baxter_world.launch
+roslaunch baxter_vision_examples heightmap.launch
 ```
+
+rosbag launch
+------------------------
+```sh
 cd /home/baxter/20151104_semi
 roslaunch ./play.launch  # play log file
 roslaunch ./setup.launch # setup recognition nodes
