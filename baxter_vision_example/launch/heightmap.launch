@@ -4,7 +4,8 @@
       <remap from="~input/points" to="xtion/depth/points" />
       <remap from="~input/pose" to="base_to_right_gripper_tf" /> 
       <rosparam>
-            negative : True
+          negative : True
+          frame_id : right_gripper_base
       </rosparam>
   </node>
   <!--<node pkg="image_view" type="image_view" name="image_view_clipper">
