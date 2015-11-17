@@ -47,5 +47,5 @@ class tf_listener:
 
 if __name__ =='__main__':
     tfl = tf_listener()
-    tfl.listener('base','right_gripper')
+    tfl.listener('xtion_depth_optical_frame','right_gripper')
 

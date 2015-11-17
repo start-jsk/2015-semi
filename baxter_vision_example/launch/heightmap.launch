@@ -1,6 +1,6 @@
 <launch>
   <node pkg="jsk_pcl_ros" type="attention_clipper" name="attention_clipper">
-      <remap from="~input" to="xtion/depth/camera_info"/>
+      <!--<remap from="~input" to="xtion/rgb/camera_info"/>-->
       <remap from="~input/points" to="xtion/depth/points" />
       <remap from="~input/pose" to="base_to_right_gripper_tf" /> 
       <rosparam>
