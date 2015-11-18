@@ -17,13 +17,13 @@ class tf_listener:
            print 'trans: %f %f %f ' % (self.trans[0], self.trans[1], self.trans[2])
            print 'rot  : %f %f %f %f ' % (self.rot[0], self.rot[1], self.rot[2],self.rot[3])
  
-    def listener(self,from_tf, to_tf):
+    def listener(self,to_tf, from_tf):
         tflistener = tf.TransformListener()
         trans = []
         rot = []
         while not rospy.is_shutdown():
             try:
-                (trans,rot) = tflistener.lookupTransform(from_tf,to_tf,rospy.Time(0))
+                (trans,rot) = tflistener.lookupTransform(to_tf,from_tf,rospy.Time(0))
                 self.publishPoseStamped(trans,rot)
                
             except (tf.LookupException,tf.ConnectivityException,tf.ExtrapolationException):
@@ -47,5 +47,5 @@ class tf_listener:
 
 if __name__ =='__main__':
     tfl = tf_listener()
-    tfl.listener('base','right_gripper')
+    tfl.listener('right_gripper_base','base')
 
