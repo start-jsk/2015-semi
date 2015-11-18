@@ -76,8 +76,8 @@ int main(int argc, char** argv)
 		if (head.getState().isDone()) {
 			if (ic.difx > 0) angleyaw += 0.1;
 			if (ic.difx < 0) angleyaw -= 0.1;
-			if (ic.dify > 0) anglepitch += 0.1;
-			if (ic.dify < 0) anglepitch -= 0.1;
+			if (ic.dify > 0) anglepitch -= 0.1;
+			if (ic.dify < 0) anglepitch += 0.1;
 			if (angleyaw > 2.0 || angleyaw < -2.0) angleyaw = 0;
 			if (anglepitch > 0.5 || anglepitch < -0.6) anglepitch = 0;
 			head.startTrajectory(head.headExtentionTrajectory(anglepitch, angleyaw));
