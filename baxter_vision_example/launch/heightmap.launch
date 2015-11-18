@@ -1,13 +1,4 @@
 <launch>
-  <node pkg="jsk_pcl_ros" type="attention_clipper" name="attention_clipper">
-      <remap from="~input/points" to="xtion/depth/points" />
-      <rosparam>
-          frame_id : right_gripper
-          initial_pos : [0.0,0.0,0.0]
-          initial_rot : [0.0,0.0,0.0,1.0]
-          negative : True
-     </rosparam>
-  </node>
   <!--<node pkg="image_view" type="image_view" name="image_view_clipper">
       <remap from="image" to="attention_clipper/output/mask" />
   </node>-->
@@ -53,5 +44,26 @@
   <node pkg="image_view" type="image_view" name="acc_image_view">
     <remap from="image" to="acc_color/output" />
   </node> -->
-
+  <node pkg="jsk_pcl_ros" type="attention_clipper" name="attention_clipper" output="screen">
+      <!--<remap from="~input" to="xtion/depth/camera_info" />-->
+      <remap from="~input/points" to="xtion/depth/points" />
+      <rosparam>
+          use_multiple_attention: false
+          frame_id: right_gripper_base
+          dimension_x: 0.5
+          dimension_y: 0.5
+          dimension_z: 0.5
+          initial_pos: [0.0,0.0,0.0]
+          initial_rot: [0.0,0.0,0.0]
+     </rosparam>
+ </node>
+ <node pkg="nodelet" type="nodelet" name="extract_indices" args="standalone pcl/ExtractIndices">
+     <remap from="~input" to="xtion/depth/points" />
+     <remap from="~indices" to="attention_clipper/output/point_indices" />
+     <rosparam>
+         approximate_sync : true
+         use_indices : true
+     </rosparam> 
+ </node>
+ 
 </launch>
