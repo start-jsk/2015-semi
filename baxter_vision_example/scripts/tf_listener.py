@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import roslib
 roslib.load_manifest('baxter_vision_example')
 import rospy
@@ -9,7 +10,6 @@ from geometry_msgs.msg import PoseStamped
 class tf_listener:
     def __init__ (self):
         rospy.init_node('baxter_tf_listener')
-        self.publisher = rospy.Publisher('base_to_right_gripper_tf',PoseStamped,queue_size=1)
         self.rate = rospy.Rate(10.0)
 
     def print_tf(self):
@@ -21,10 +21,12 @@ class tf_listener:
         tflistener = tf.TransformListener()
         trans = []
         rot = []
+        topic_name = u"/"+ from_tf + u"_to_" + to_tf + u"_tf"
+        self.publisher = rospy.Publisher(topic_name,PoseStamped,queue_size=1)
         while not rospy.is_shutdown():
             try:
                 (trans,rot) = tflistener.lookupTransform(to_tf,from_tf,rospy.Time(0))
-                self.publishPoseStamped(trans,rot)
+                self.publishPoseStamped(from_tf,trans,rot)
                
             except (tf.LookupException,tf.ConnectivityException,tf.ExtrapolationException):
                 pass
@@ -32,9 +34,9 @@ class tf_listener:
             #self.print_tf()
             self.rate.sleep()
 
-    def publishPoseStamped(self,trans,rot):
+    def publishPoseStamped(self,from_tf,trans,rot):
         pub = PoseStamped()
-        pub.header.frame_id = "/base_to_right_gripper_tf"
+        pub.header.frame_id = from_tf
         pub.header.stamp = rospy.Time.now()
         pub.pose.position.x = trans[0]
         pub.pose.position.y = trans[1]
@@ -47,5 +49,8 @@ class tf_listener:
 
 if __name__ =='__main__':
     tfl = tf_listener()
-    tfl.listener('right_gripper_base','base')
+    if (len(sys.argv) != 3):
+        print "Usage: python tf_listener.py to_tf from_tf"
+    else:
+        tfl.listener(sys.argv[1],sys.argv[2])
 
