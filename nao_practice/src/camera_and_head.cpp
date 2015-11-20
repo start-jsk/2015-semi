@@ -21,8 +21,10 @@ class ImageConverter
 public:
 	int difx;
 	int dify;
+	bool found;
 	ImageConverter() : it_(nh_)
 	{
+		found = false;
 		image_sub_ = it_.subscribe("/camera/front/image_raw", 1, &ImageConverter::imageCb, this);
 		image_pub_ = it_.advertise("/image_converter/output_video", 1);
 
@@ -55,7 +57,11 @@ public:
 			printf("found\n");
 			difx = img.cols/2 - pos[0];
 			dify = img.rows/2 - pos[1];
-		} else printf("not found\n");
+			found = true;
+		} else {
+			printf("not found\n");
+			found = false;
+		}
 		cv::imshow("image1", img);
 		cv::waitKey(3);
 
@@ -74,10 +80,16 @@ int main(int argc, char** argv)
 	ImageConverter ic;
 	while (ros::ok()) {
 		if (head.getState().isDone()) {
-			if (ic.difx > 0) angleyaw += 0.1;
-			if (ic.difx < 0) angleyaw -= 0.1;
-			if (ic.dify > 0) anglepitch -= 0.1;
-			if (ic.dify < 0) anglepitch += 0.1;
+			if (ic.found) {
+				if (ic.difx > 0) angleyaw += 0.1;
+				if (ic.difx < 0) angleyaw -= 0.1;
+				if (ic.dify > 0) anglepitch -= 0.1;
+				if (ic.dify < 0) anglepitch += 0.1;
+			} else {
+				anglepitch = 0;
+				angleyaw = dir*0.2;
+				dir = -dir;
+			}
 			if (angleyaw > 2.0 || angleyaw < -2.0) angleyaw = 0;
 			if (anglepitch > 0.5 || anglepitch < -0.6) anglepitch = 0;
 			head.startTrajectory(head.headExtentionTrajectory(anglepitch, angleyaw));
