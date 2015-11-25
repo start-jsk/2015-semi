@@ -54,4 +54,5 @@
     <node name="rviz"
         pkg="rviz" type="rviz"
         args="-d $(find baxter_vision_example)/pointcloud_in_hand.rviz" />
+
 </launch>
