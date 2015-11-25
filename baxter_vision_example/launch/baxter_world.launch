@@ -8,7 +8,7 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
-  <arg name="shelf_model_path" default="$(find jsk_2015_apc_common)" />
+  <arg name="shelf_model_path" default="$(find jsk_apc2015_common)"/>
 
   <!-- We resume the logic in empty_world.launch, changing the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -23,8 +23,11 @@
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
+  <!--<param name="robot_description"
+	 command="cat '$(find baxter_vision_example)/urdf/baxter.urdf'" />-->
   <param name="robot_description"
-	 command="cat '$(find baxter_vision_example)/urdf/baxter.urdf'" />
+         command="$(find xacro)/xacro.py $(find baxter_vision_example)/urdf/baxter.xacro" />
+
 
   <!-- Load the software version into the ROS Parameter Server -->
   <param name="rethink/software_version" value="1.1.1" />
