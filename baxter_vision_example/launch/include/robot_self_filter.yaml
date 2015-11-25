@@ -1,0 +1,12 @@
+ensor_dist: .2
+self_see_default_padding: .01
+self_see_default_scale: 1.0
+self_see_links:
+    - name: right_gripper_base
+    - name: right_wrist
+    - name: right_lower_forearm
+    - name: right_custom_vacuum_link
+    - name: right_custom_vacuum_link_base
+
+
+
