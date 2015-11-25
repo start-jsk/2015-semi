@@ -1,6 +1,7 @@
 <launch>
     <arg name="SELF_FILTER_PARAM" default="$(find baxter_vision_example)/launch/include/robot_self_filter.yaml" />
     <arg name="INPUT" default="/xtion/depth/points" />
+
     <node pkg="robot_self_filter"
         type="self_filter" clear_params="true"
         name="self_filter" respawn="true" output="screen">
@@ -25,7 +26,7 @@
         </rosparam>
     </node>
     <node pkg="nodelet" type="nodelet" name="pc_raw_extract_indices" args="standalone pcl/ExtractIndices">
-        <remap from="~input" to="xtion/depth/points" />
+        <remap from="~input" to="$(arg INPUT)" />
         <remap from="~indices" to="pc_raw_attention_clipper/output/point_indices" />
         <rosparam>
             approximate_sync : true
