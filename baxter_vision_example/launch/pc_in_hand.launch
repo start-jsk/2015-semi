@@ -1,6 +1,6 @@
 <launch>
     <arg name="SELF_FILTER_PARAM" default="$(find baxter_vision_example)/launch/include/robot_self_filter.yaml" />
-    <arg name="INPUT" default="/xtion/depth/points" />
+    <arg name="INPUT" default="/kinect2_head/hd/points" />
 
     <node pkg="robot_self_filter"
         type="self_filter" clear_params="true"
@@ -13,7 +13,6 @@
         <param name="subsample_value" type="double" value="0.0"/>
     </node>
     <node pkg="jsk_pcl_ros" type="attention_clipper" name="pc_raw_attention_clipper" output="screen">
-        <!--<remap from="~input" to="xtion/depth/camera_info" /> -->
         <remap from="~input/points" to="robot_self_filter/output" />
         <rosparam>
             use_multiple_attention: false
