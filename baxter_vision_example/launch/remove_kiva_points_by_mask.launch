@@ -20,7 +20,7 @@
         <remap from="~output" to="~indices" />
     </node>
 
-    <node name="extract_indices"
+    <node name="kiva_pod_extract_indices"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
         <remap from="~input" to="/kinect2_head/hd/points" />
