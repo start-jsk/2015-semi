@@ -1,35 +1,34 @@
 <launch>
-
-  <node name="mask_publisher"
+    <node name="mask_publisher"
         pkg="jsk_perception" type="image_publisher.py">
-    <param name="file_name" value="$(find baxter_vision_example)/data/foreground.jpg" />
-    <rosparam>
-      publish_info: false
-      frame_id: kinect2_rgb_optical_frame
-    </rosparam>
-    <remap from="~output" to="~mask" />
-  </node>
+        <param name="file_name" value="$(find baxter_vision_example)/data/foreground.jpg" />
+        <rosparam>
+            publish_info: false
+            frame_id: kinect2_rgb_optical_frame
+        </rosparam>
+        <remap from="~output" to="~mask" />
+    </node>
 
-  <node name="a_manager"
+    <node name="nodelet_manager"
         pkg="nodelet" type="nodelet" args="manager" />
-  <arg name="MANAGER" value="a_manager" />
+    <arg name="MANAGER" value="nodelet_manager" />
 
-  <node name="mask_to_pi"
+    <node name="mask_to_pi"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/MaskImageToPointIndices $(arg MANAGER)">
-    <remap from="~input" to="mask_publisher/mask" />
-    <remap from="~output" to="~indices" />
-  </node>
+        <remap from="~input" to="/mask_publisher/mask" />
+        <remap from="~output" to="~indices" />
+    </node>
 
-  <node name="extract_indices"
+    <node name="extract_indices"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
-    <remap from="~input" to="/kinect2_head/hd/points" />
-    <remap from="~indices" to="mask_to_pi/indices" />
-    <remap from="~output" to="~points" />
-    <rosparam>
-      approximate_sync: true
-    </rosparam>
-  </node>
+        <remap from="~input" to="/kinect2_head/hd/points" />
+        <remap from="~indices" to="/mask_to_pi/indices" />
+        <remap from="~output" to="~points" />
+        <rosparam>
+            approximate_sync: true
+        </rosparam>
+    </node>
 
 </launch>
