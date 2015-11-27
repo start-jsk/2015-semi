@@ -8,7 +8,7 @@
 
   <node name="$(anon image_view)"
         pkg="image_view" type="image_view">
-    <remap from="image" to="split_fore_background/output/fg" />
+    <remap from="image" to="split_fore_background/output/fg_mask" />
   </node>
 
 </launch>
