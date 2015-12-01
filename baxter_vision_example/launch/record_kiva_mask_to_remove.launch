@@ -10,5 +10,5 @@
         pkg="image_view" type="image_view">
     <remap from="image" to="split_fore_background/output/fg_mask" />
   </node>
-
+  <node name="save_mask" pkg="baxter_vision_example" type="save_mask.py" />
 </launch>
