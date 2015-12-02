@@ -1,7 +1,7 @@
 <launch>
     <node name="fg_mask_publisher"
         pkg="jsk_perception" type="image_publisher.py">
-        <param name="file_name" value="$(find baxter_vision_example)/data/foreground.jpg" />
+        <param name="file_name" value="$(find baxter_vision_example)/data/fg_mask.jpg" />
         <rosparam>
             publish_info: false
             frame_id: kinect2_rgb_optical_frame
@@ -10,7 +10,7 @@
     </node>
     <node name="bg_mask_publisher"
         pkg="jsk_perception" type="image_publisher.py">
-        <param name="file_name" value="$(find baxter_vision_example)/data/background.jpg" />
+        <param name="file_name" value="$(find baxter_vision_example)/data/bg_mask.jpg" />
         <rosparam>
             publish_info: false
             frame_id: kinect2_rgb_optical_frame
@@ -47,7 +47,7 @@
         </rosparam>
     </node>
     <!--for foreground mask --> 
-    <node name="fg_kiva_pod_extract_indices"
+<!--     <node name="fg_kiva_pod_extract_indices"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
         <remap from="~input" to="/kinect2_head/hd/points" />
@@ -58,4 +58,5 @@
             negative : true
         </rosparam>
     </node>
-</launch>
+ -->
+ </launch>
