@@ -8,7 +8,7 @@
         </rosparam>
         <remap from="~output" to="~mask" />
     </node>
-    <node name="bg_mask_publisher"
+     <node name="bg_mask_publisher"
         pkg="jsk_perception" type="image_publisher.py">
         <param name="file_name" value="$(find baxter_vision_example)/data/bg_mask.jpg" />
         <rosparam>
@@ -17,12 +17,11 @@
         </rosparam>
         <remap from="~output" to="~mask" />
     </node>
-
     <node name="nodelet_manager"
         pkg="nodelet" type="nodelet" args="manager" />
     <arg name="MANAGER" value="nodelet_manager" />
 
-    <node name="bg_mask_to_pi"
+     <node name="bg_mask_to_pi"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/MaskImageToPointIndices $(arg MANAGER)">
         <remap from="~input" to="bg_mask_publisher/mask" />
@@ -35,7 +34,7 @@
         <remap from="~output" to="~indices" />
     </node>
     <!--for background mask --> 
-    <node name="bg_kiva_pod_extract_indices"
+     <node name="bg_kiva_pod_extract_indices"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
         <remap from="~input" to="/kinect2_head/hd/points" />
@@ -43,11 +42,11 @@
         <remap from="~output" to="~points" />
         <rosparam>
             approximate_sync: true
-            negative : true
+            negative: true
         </rosparam>
     </node>
     <!--for foreground mask --> 
-<!--     <node name="fg_kiva_pod_extract_indices"
+    <node name="fg_kiva_pod_extract_indices"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
         <remap from="~input" to="/kinect2_head/hd/points" />
@@ -55,8 +54,12 @@
         <remap from="~output" to="~points" />
         <rosparam>
             approximate_sync: true
-            negative : true
+            negative: true
         </rosparam>
     </node>
- -->
- </launch>
+    <node name="split_fore_background"
+        pkg="jsk_perception" type="split_fore_background.py">
+        <remap from="~input" to="/kinect2_head/hd/image_color" />
+        <remap from="~input/depth" to="/kinect2_head/hd/image_depth_rect" />
+     </node>
+  </launch>
