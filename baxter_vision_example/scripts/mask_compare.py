@@ -20,7 +20,9 @@ class mask_compare():
         [self.bg_mask_prv_x, self.bg_mask_prv_y] = self.calcGraph(self.bg_mask_prv)
         self.threshold_x = 100
         self.threshold_y = 100
-        rospy.init_node('mask_compare',anonymous=True)
+        self.min_x_delta = 0
+        self.min_y_delta = 0
+        rospy.init_node('mask_compare_server',anonymous=True)
         self.pub_delta_x = rospy.Publisher('mask_compare/output/delta_x', Int32,queue_size=1)
         self.pub_delta_y = rospy.Publisher('mask_compare/output/delta_y', Int32,queue_size=1)
         rospy.Subscriber("split_fore_background/output/bg_mask",Image,self.callback)
@@ -34,54 +36,59 @@ class mask_compare():
         min_x_delta = 0
         min_y_delta = 0
     
-        for delta_x in range(0,self.threshold_x):
-            # for positive delta_x
-            sub_x_value = 0 
-            for cur_x in range(0,len(self.bg_mask_cur_x)-delta_x):
-                sub_x_value = sub_x_value + abs(int(self.bg_mask_cur_x[cur_x][0]) - int(self.bg_mask_prv_x[cur_x+delta_x][0]))
-            sub_x_value = sub_x_value / (len(self.bg_mask_cur_x)-delta_x)
-            if min_x > sub_x_value:
-                min_x = sub_x_value
-                min_x_delta = delta_x
-           # for negative delta_x
-            sub_x_value = 0 
-            for prv_x in range(0,len(self.bg_mask_prv_x)-delta_x):
-                sub_x_value += abs(int(self.bg_mask_cur_x[prv_x+delta_x][0]) - int(self.bg_mask_prv_x[prv_x][0]))
-            sub_x_value = sub_x_value / (len(self.bg_mask_prv_x)-delta_x)
-            if min_x > sub_x_value:
-                min_x = sub_x_value
-                min_x_delta = -delta_x
         for delta_y in range(0,self.threshold_y):
             # for positive delta_y
             sub_y_value = 0 
             for cur_y in range(0,len(self.bg_mask_cur_y)-delta_y):
-                sub_y_value += abs(int(self.bg_mask_cur_y[cur_y][0]) - int(self.bg_mask_prv_y[cur_y+delta_y][0]))
+                sub_y_value = sub_y_value + abs(int(self.bg_mask_cur_y[cur_y][0]) - int(self.bg_mask_prv_y[cur_y+delta_y][0]))
             sub_y_value = sub_y_value / (len(self.bg_mask_cur_y)-delta_y)
             if min_y > sub_y_value:
                 min_y = sub_y_value
-                min_y_delta = delta_y
-            # for negative delta_y
-            sub_y_value = 0
+                self.min_y_delta = delta_y
+           # for negative delta_y
+            sub_y_value = 0 
             for prv_y in range(0,len(self.bg_mask_prv_y)-delta_y):
                 sub_y_value += abs(int(self.bg_mask_cur_y[prv_y+delta_y][0]) - int(self.bg_mask_prv_y[prv_y][0]))
             sub_y_value = sub_y_value / (len(self.bg_mask_prv_y)-delta_y)
             if min_y > sub_y_value:
                 min_y = sub_y_value
-                min_y_delta = -delta_y 
-        self.pub_delta_x.publish(min_x_delta)
-        self.pub_delta_y.publish(min_y_delta)
+                self.min_y_delta = -delta_y
+        for delta_x in range(0,self.threshold_x):
+            # for positive delta_x
+            sub_x_value = 0 
+            for cur_x in range(0,len(self.bg_mask_cur_x)-delta_x):
+                sub_x_value += abs(int(self.bg_mask_cur_x[cur_x][0]) - int(self.bg_mask_prv_x[cur_x+delta_x][0]))
+            sub_x_value = sub_x_value / (len(self.bg_mask_cur_x)-delta_x)
+            if min_x > sub_x_value:
+                min_x = sub_x_value
+                self.min_x_delta = delta_x
+            # for negative delta_x
+            sub_x_value = 0
+            for prv_x in range(0,len(self.bg_mask_prv_x)-delta_x):
+                sub_x_value += abs(int(self.bg_mask_cur_x[prv_x+delta_x][0]) - int(self.bg_mask_prv_x[prv_x][0]))
+            sub_x_value = sub_x_value / (len(self.bg_mask_prv_x)-delta_x)
+            if min_x > sub_x_value:
+                min_x = sub_x_value
+                self.min_x_delta = -delta_x 
+        self.publish()
+        print self.min_x_delta
+        print self.min_y_delta
 
     def calcGraph(self,data):
         graph_x = []
         graph_y = []
-        for x in range(0,len(data)):
-            graph_x.append(sum(data[x]))
-        for y in range (0,len(data[0])):
-            sum_y = 0
-            for x in range(0,len(data)):
-                sum_y += data[x][y]
-            graph_y.append(sum_y)
+        for y in range(0,len(data)):
+            graph_y.append(sum(data[y]))
+        for x in range (0,len(data[0])):
+            sum_x = 0
+            for y in range(0,len(data)):
+                sum_x += data[y][x]
+            graph_x.append(sum_x)
         return [graph_x,graph_y]
-                
+
+    def publish(self):
+        self.pub_delta_x.publish(self.min_x_delta)
+        self.pub_delta_y.publish(self.min_y_delta)
+
 if __name__ == '__main__':
-   comparer = mask_compare()
+    comparer = mask_compare()
