@@ -39,7 +39,7 @@ def callback_fg(data):
 def image_saver():
     rospy.init_node('image_saver',anonymous=True)
     rospy.Subscriber("split_fore_background/output/bg_mask",Image,callback_bg_mask)
-    #rospy.Subscriber("split_fore_background/output/bg",Image,callback_bg)
+    rospy.Subscriber("split_fore_background/output/bg",Image,callback_bg)
     rospy.Subscriber("split_fore_background/output/fg_mask",Image,callback_fg_mask)
     rospy.Subscriber("split_fore_background/output/fg",Image,callback_fg)
     rospy.spin()
