@@ -17,7 +17,7 @@ class mask_generate():
         self.img_path = self.rospack.get_path('baxter_vision_example') + u"/data/fg.jpg" 
         self.bg_prv = cv2.imread(self.img_path)
         self.delta_x = 0
-        self.threshold = 50
+        self.threshold = 100
         rospy.init_node('mask_generate',anonymous=True)
         rospy.Subscriber("split_fore_background/output/fg",Image,self.callback_bg)    
         rospy.Subscriber("mask_compare/output/delta_x",Int16,self.callback_x)
@@ -38,20 +38,20 @@ class mask_generate():
             for x in range(0,len(img_cur[0])):
                 if delta_x > 0:
                     if x < len(img_cur[0]) - delta_x :
-                        if abs(int(img_cur[y][x][0]) -int(img_prv[y][x+delta_x][0])) < self.threshold:
-                            mask[y][x] = [255,255,255]
-                        else :
+                        if abs(int(sum(img_cur[y][x])) -int(sum(img_prv[y][x+delta_x]))) > self.threshold:
                             mask[y][x] = [0,0,0]
+                        else :
+                            mask[y][x] = [255,255,255]
                     else :
-                        mask[y][x] = [0,0,0]
+                        mask[y][x] = [255,255,255]
                 else:
                     if x > -delta_x:
-                        if abs(int(img_cur[y][x][0]) - int(img_prv[y][x+delta_x][0])) < self.threshold:
-                            mask[y][x] = [255,255,255]
-                        else :
+                        if abs(int(sum(img_cur[y][x])) - int(sum(img_prv[y][x+delta_x]))) > self.threshold:
                             mask[y][x] = [0,0,0]
+                        else :
+                            mask[y][x] = [255,255,255]
                     else:
-                        mask[y][x] = [0,0,0]
+                        mask[y][x] = [255,255,255]
         return mask
 
 if __name__ =='__main__':
