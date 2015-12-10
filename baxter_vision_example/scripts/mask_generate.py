@@ -17,7 +17,7 @@ class mask_generate():
         self.img_path = self.rospack.get_path('baxter_vision_example') + u"/data/fg.jpg" 
         self.bg_prv = cv2.imread(self.img_path)
         self.delta_x = 0
-        self.threshold = 100
+        self.threshold = 80
         rospy.init_node('mask_generate',anonymous=True)
         rospy.Subscriber("split_fore_background/output/fg",Image,self.callback_bg)    
         rospy.Subscriber("mask_compare/output/delta_x",Int16,self.callback_x)
@@ -27,6 +27,7 @@ class mask_generate():
         self.bg_cur = self.bridge.imgmsg_to_cv2(data,data.encoding)
         self.mask = self.compare_generate(self.bg_prv,self.bg_cur,self.delta_x)
         self.mask_img_path = self.rospack.get_path('baxter_vision_example') + u"/data/mask.jpg" 
+        print self.delta_x
         cv2.imwrite(self.mask_img_path,self.mask)
 
     def callback_x(self,msg):
