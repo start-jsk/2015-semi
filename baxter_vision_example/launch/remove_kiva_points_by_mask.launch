@@ -1,4 +1,7 @@
 <launch>
+    <arg name="threshold_x" value="100" />
+    <arg name="threshold_y" value="100" />
+    <arg name="threshold" value="100"/>
     <node name="fg_mask_publisher"
         pkg="jsk_perception" type="image_publisher.py">
         <param name="file_name" value="$(find baxter_vision_example)/data/fg_mask.jpg" />
@@ -61,5 +64,8 @@
         pkg="jsk_perception" type="split_fore_background.py">
         <remap from="~input" to="/kinect2_head/hd/image_color" />
         <remap from="~input/depth" to="/kinect2_head/hd/image_depth_rect" />
-     </node>
-  </launch>
+    </node>
+    <node name="save_mask_current" pkg="baxter_vision_example" type="save_mask_current.py" /> 
+    <node name="mask_compare" pkg="baxter_vision_example" type="mask_compare.py" args="$(arg threshold_x) $(arg threshold_y)"/> 
+    <node name="mask_generate" pkg="baxter_vision_example" type="mask_generate.py" args="$(arg threshold)"/> 
+</launch>
