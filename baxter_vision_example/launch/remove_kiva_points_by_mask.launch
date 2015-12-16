@@ -1,35 +1,71 @@
 <launch>
-
-  <node name="mask_publisher"
+    <arg name="threshold_x" value="100" />
+    <arg name="threshold_y" value="100" />
+    <arg name="threshold" value="100"/>
+    <node name="fg_mask_publisher"
         pkg="jsk_perception" type="image_publisher.py">
-    <param name="file_name" value="$(find baxter_vision_example)/data/foreground.jpg" />
-    <rosparam>
-      publish_info: false
-      frame_id: kinect2_rgb_optical_frame
-    </rosparam>
-    <remap from="~output" to="~mask" />
-  </node>
-
-  <node name="a_manager"
+        <param name="file_name" value="$(find baxter_vision_example)/data/fg_mask.jpg" />
+        <rosparam>
+            publish_info: false
+            frame_id: kinect2_rgb_optical_frame
+        </rosparam>
+        <remap from="~output" to="~mask" />
+    </node>
+     <node name="bg_mask_publisher"
+        pkg="jsk_perception" type="image_publisher.py">
+        <param name="file_name" value="$(find baxter_vision_example)/data/bg_mask.jpg" />
+        <rosparam>
+            publish_info: false
+            frame_id: kinect2_rgb_optical_frame
+        </rosparam>
+        <remap from="~output" to="~mask" />
+    </node>
+    <node name="nodelet_manager"
         pkg="nodelet" type="nodelet" args="manager" />
-  <arg name="MANAGER" value="a_manager" />
+    <arg name="MANAGER" value="nodelet_manager" />
 
-  <node name="mask_to_pi"
+     <node name="bg_mask_to_pi"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/MaskImageToPointIndices $(arg MANAGER)">
-    <remap from="~input" to="mask_publisher/mask" />
-    <remap from="~output" to="~indices" />
-  </node>
-
-  <node name="extract_indices"
+        <remap from="~input" to="bg_mask_publisher/mask" />
+        <remap from="~output" to="~indices" />
+    </node>
+    <node name="fg_mask_to_pi"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/MaskImageToPointIndices $(arg MANAGER)">
+        <remap from="~input" to="fg_mask_publisher/mask" />
+        <remap from="~output" to="~indices" />
+    </node>
+    <!--for background mask --> 
+     <node name="bg_kiva_pod_extract_indices"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
-    <remap from="~input" to="/kinect2_head/hd/points" />
-    <remap from="~indices" to="mask_to_pi/indices" />
-    <remap from="~output" to="~points" />
-    <rosparam>
-      approximate_sync: true
-    </rosparam>
-  </node>
-
+        <remap from="~input" to="/kinect2_head/hd/points" />
+        <remap from="~indices" to="/bg_mask_to_pi/indices" />
+        <remap from="~output" to="~points" />
+        <rosparam>
+            approximate_sync: true
+            negative: true
+        </rosparam>
+    </node>
+    <!--for foreground mask --> 
+    <node name="fg_kiva_pod_extract_indices"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
+        <remap from="~input" to="/kinect2_head/hd/points" />
+        <remap from="~indices" to="/fg_mask_to_pi/indices" />
+        <remap from="~output" to="~points" />
+        <rosparam>
+            approximate_sync: true
+            negative: true
+        </rosparam>
+    </node>
+    <node name="split_fore_background"
+        pkg="jsk_perception" type="split_fore_background.py">
+        <remap from="~input" to="/kinect2_head/hd/image_color" />
+        <remap from="~input/depth" to="/kinect2_head/hd/image_depth_rect" />
+    </node>
+    <node name="save_mask_current" pkg="baxter_vision_example" type="save_mask_current.py" /> 
+    <node name="mask_compare" pkg="baxter_vision_example" type="mask_compare.py" args="$(arg threshold_x) $(arg threshold_y)"/> 
+    <node name="mask_generate" pkg="baxter_vision_example" type="mask_generate.py" args="$(arg threshold)"/> 
 </launch>

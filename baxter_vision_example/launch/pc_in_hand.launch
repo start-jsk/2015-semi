@@ -1,0 +1,56 @@
+<launch>
+    <arg name="SELF_FILTER_PARAM" default="$(find baxter_vision_example)/launch/include/robot_self_filter.yaml" />
+    <arg name="INPUT" default="/kinect2_head/hd/points" />
+
+    <node pkg="robot_self_filter"
+        type="self_filter" clear_params="true"
+        name="self_filter" respawn="true" output="screen">
+        <remap from="cloud_in" to="$(arg INPUT)" />
+        <remap from="cloud_out" to="robot_self_filter/output" />
+        <rosparam command="load" file="$(arg SELF_FILTER_PARAM)" />
+        <param name="use_rgb" value="true" />
+        <param name="keep_organized" value="true"/>
+        <param name="subsample_value" type="double" value="0.0"/>
+    </node>
+    <node pkg="jsk_pcl_ros" type="attention_clipper" name="pc_raw_attention_clipper" output="screen">
+        <remap from="~input/points" to="robot_self_filter/output" />
+        <rosparam>
+            use_multiple_attention: false
+            frame_id: right_gripper_base
+            dimension_x: 0.5
+            dimension_y: 0.5
+            dimension_z: 0.5
+            initial_pos: [0.0,0.0,0.0]
+            initial_rot: [0.0,0.0,0.0]
+        </rosparam>
+    </node>
+    <node pkg="nodelet" type="nodelet" name="pc_raw_extract_indices" args="standalone pcl/ExtractIndices">
+        <remap from="~input" to="$(arg INPUT)" />
+        <remap from="~indices" to="pc_raw_attention_clipper/output/point_indices" />
+        <rosparam>
+            approximate_sync : true
+            use_indices : true
+        </rosparam> 
+    </node>
+    <!--add filter to complete hole -->
+    <node pkg="jsk_pcl_ros" type="heightmap_converter" name="heightmap_converter">
+        <remap from="~input" to="pc_raw_extract_indices/output" />
+    </node>
+    <node pkg="jsk_pcl_ros" type="heightmap_morphological_filtering" name="complete_hole">
+        <remap from="~input" to="heightmap_converter/output" />
+    </node>
+    <node pkg="jsk_perception" type="colorize_float_image" name="colorize_filtered_heightmap">
+        <remap from="~input" to="complete_hole/output" />
+    </node>
+    <node pkg="jsk_pcl_ros" type="heightmap_to_pointcloud" name="completed_pointcloud">
+        <remap from="~input" to="complete_hole/output" />
+    </node>
+    <node pkg="image_view" type="image_view" name="filtered_image_view">
+        <remap from="image" to="colorize_filtered_heightmap/output" />
+    </node>
+
+    <!--rviz -->
+    <node name="rviz"
+        pkg="rviz" type="rviz"
+        args="-d $(find baxter_vision_example)/pointcloud_in_hand.rviz" />
+</launch>

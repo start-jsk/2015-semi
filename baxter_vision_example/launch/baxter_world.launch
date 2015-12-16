@@ -8,12 +8,12 @@
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
-  <arg name="shelf_model_path" default="$(find jsk_2015_apc_common)" />
+  <arg name="shelf_model_path" default="$(find jsk_apc2015_common)"/>
 
   <!-- We resume the logic in empty_world.launch, changing the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg if="$(arg kiva)" name="world_name" value="$(find jsk_2015_05_baxter_apc)/worlds/empty_kiva.world"/>
-    <arg unless="$(arg kiva)" name="world_name" value="$(find baxter_gazebo)/worlds/baxter.world"/>
+    <arg if="$(arg kiva)" name="world_name" value="$(find baxter_vision_example)/worlds/empty_kiva.world"/>
+    <arg unless="$(arg kiva)" name="world_name" value="$(find baxter_vision_example)/worlds/baxter.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>
@@ -23,8 +23,12 @@
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="robot_description"
+  <!--<param name="robot_description"
 	 command="cat '$(find baxter_vision_example)/urdf/baxter.urdf'" />
+  -->
+  <param name="robot_description"
+         command="$(find xacro)/xacro.py $(find baxter_vision_example)/urdf/baxter.xacro" />
+
 
   <!-- Load the software version into the ROS Parameter Server -->
   <param name="rethink/software_version" value="1.1.1" />
@@ -34,8 +38,8 @@
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-	args="-file $(find baxter_vision_example)/urdf/baxter.urdf -urdf -z 0.93 -model baxter
-	      -J baxter::right_s0 -0.272659
+	args="-param robot_description -urdf -z 0.93 -model baxter
+          -J baxter::right_s0 -0.272659
 	      -J baxter::right_s1 1.04701
 	      -J baxter::right_e0 -0.00123203
 	      -J baxter::right_e1 0.49262
@@ -49,7 +53,7 @@
 	      -J baxter::left_w0 -0.178079
 	      -J baxter::left_w1 -0.0610333
 	      -J baxter::left_w2 -0.0124707" />
-
+      
   <!-- ros_control baxter launch file -->
   <include file="$(find baxter_sim_hardware)/launch/baxter_sdk_control.launch" />
   <!-- rosrun tf_listener-->
