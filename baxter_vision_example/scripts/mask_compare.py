@@ -12,14 +12,14 @@ from std_msgs.msg import Int16
 
 class mask_compare():
 
-    def __init__(self):
+    def __init__(self,threshold_x,threshold_y):
         self.bridge = cv_bridge.CvBridge()
         self.rospack = rospkg.RosPack()
         self.img_path = self.rospack.get_path('baxter_vision_example') + u"/data/bg_mask.jpg"
         self.bg_mask_prv = cv2.imread(self.img_path)
         [self.bg_mask_prv_x, self.bg_mask_prv_y] = self.calcGraph(self.bg_mask_prv)
-        self.threshold_x = 100
-        self.threshold_y = 100
+        self.threshold_x = int(threshold_x)
+        self.threshold_y = int(threshold_y)
         self.min_x_delta = 0
         self.min_y_delta = 0
         rospy.init_node('mask_compare',anonymous=True)
@@ -71,8 +71,6 @@ class mask_compare():
                 min_x = sub_x_value
                 self.min_x_delta = delta_x 
         self.publish()
-        print self.min_x_delta
-        print self.min_y_delta
 
     def calcGraph(self,data):
         graph_x = []
@@ -91,4 +89,4 @@ class mask_compare():
         self.pub_delta_y.publish(self.min_y_delta)
 
 if __name__ == '__main__':
-    comparer = mask_compare()
+    comparer = mask_compare(sys.argv[1],sys.argv[2])
